@@ -22,7 +22,7 @@ import (
 
 const (
 	SQL_INIT = `
-CREATE DATABASE IF NOT EXISTS log (
+CREATE TABLE IF NOT EXISTS log (
     kind TEXT,
     content BLOB,
     revision STRING,
