@@ -46,7 +46,7 @@ type IsuCollector struct {
 }
 
 func New(repo string, dbpath string) *IsuCollector {
-	db, err := sql.Open("sqlite", dbpath)
+	db, err := sql.Open("sqlite3", dbpath)
 	if err != nil {
 		panic(err)
 	}
