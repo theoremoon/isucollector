@@ -29,7 +29,6 @@ CREATE DATABASE IF NOT EXISTS log (
     created_at INTEGER
 )
 `
-	DB_PATH         = "/tmp/isucollector.sqlite"
 	SLOW_LOG_PATH   = "/var/log/mysql/slow-log.lsql"
 	ACCESS_LOG_PATH = "/var/log/nginx/access.log"
 	ALP_CONF_PATH   = "/tmp/alp.conf"
@@ -46,8 +45,8 @@ type IsuCollector struct {
 	ALPCommand string
 }
 
-func New(repo string) *IsuCollector {
-	db, err := sql.Open("sqlite", DB_PATH)
+func New(repo string, dbpath string) *IsuCollector {
+	db, err := sql.Open("sqlite", dbpath)
 	if err != nil {
 		panic(err)
 	}
@@ -59,7 +58,7 @@ func New(repo string) *IsuCollector {
 	return &IsuCollector{
 		db:         db,
 		repo:       repo,
-		DBPath:     DB_PATH,
+		DBPath:     dbpath,
 		SlowLog:    SLOW_LOG_PATH,
 		AccessLog:  ACCESS_LOG_PATH,
 		ALPConf:    ALP_CONF_PATH,
