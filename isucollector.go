@@ -202,7 +202,7 @@ func (c *IsuCollector) GetAlpHandler() http.Handler {
 		}
 
 		rw.Header().Set("Content-Type", "text/csv")
-		json.NewEncoder(rw).Encode(data)
+		rw.Write([]byte(data))
 	})
 }
 

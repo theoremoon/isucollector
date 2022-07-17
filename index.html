@@ -10,28 +10,49 @@
 <body>
 
     <div id="app" class="container">
-        <ul class="list-group" v-for="">
+        <ul class="list-group" v-for="rev in revisions">
+            <li class="list-group-item" @click="loadData(rev.created_at)">{{rev.revision}} at {{formatDate(rev.created_at)}}</li>
         </ul>
 
     </div>
     <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.js" integrity="sha512-VcwFAndRWOHd2GciF0dxUnsMlQGvIWMzKaOECoZT/xvKE3B6Lsow+xtuoi+fI/hBKF2F05mgLcynmICdvI4a4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
       const { createApp } = Vue
 
       createApp({
         data() {
             return {
-                revisions: [],
+                revisions: [{
+                    revision: "a",
+                    created_at: 123,
+                }],
             }
         },
         methods: {
+            formatDate(d) {
+                return (new Date(d*1000)).toLocaleString()
+
+            },
             getRevisions() {
-                fetch('/debug/revisions').then(r => r.json()).then(data => {
-                    this.revisions = data;
+                fetch('https://13.113.54.18/debug/revisions').then(r => r.json()).then(data => {
+
+                    Object.assign(this.revisions, data);
+                })
+            },
+            loadData(datetime) {
+                fetch('https://13.113.54.18/debug/pt-query-digest?created_at=' + encodeURIComponent(datetime)).then(r => r.json()).then(data => {
+                    console.log(data)
+                })
+
+                fetch('https://13.113.54.18/debug/alp?created_at=' + encodeURIComponent(datetime)).then(r => r.text()).then(data => {
+                    const csv = Papa.parse(data, {header: true});
+                    console.log(csv)
                 })
             },
         },
         created() {
+            this.getRevisions()
         }
       }).mount('#app')
     </script>
