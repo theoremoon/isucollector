@@ -65,7 +65,7 @@ input:checked+div{
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="row in digest.classes" @click="copyText(row.fingerprint)">
+                    <tr v-for="row in digest.classes" @click="copyText(row.example.query)">
                         <td :title="row.fingerprint" class="text-truncate" style="max-width: 20em">{{row.fingerprint}}</td>
                         <td>{{row.query_count}}</td>
                         <td>{{row.metrics.Query_time.sum}}</td>
