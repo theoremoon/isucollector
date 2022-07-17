@@ -76,7 +76,7 @@ func (c *IsuCollector) queryDigest() (io.Reader, error) {
 }
 
 func (c *IsuCollector) alp() (io.Reader, error) {
-	cmd := exec.Command("alp", "ltsv", "--config", c.ALPConf, "--format", c.ALPCommand, "--file", c.AccessLog, "--format", "csv")
+	cmd := exec.Command("alp", "--config", c.ALPConf, "--format", c.ALPCommand, "--file", c.AccessLog, "--format", "csv")
 	output, err := cmd.Output()
 	if err != nil {
 		return nil, err
