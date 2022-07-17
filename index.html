@@ -60,6 +60,7 @@ input:checked+div{
                         <th>query time(sum)</th>
                         <th>query time(max)</th>
                         <th>query time(median)</th>
+                        <th>lock time(sum)</th>
                         <th>rows examined</th>
                         <th>rows sent</th>
                     </tr>
@@ -71,6 +72,7 @@ input:checked+div{
                         <td>{{row.metrics.Query_time.sum}}</td>
                         <td :class="{'text-danger': (row.metrics.Query_time.max >= 0.1)}">{{row.metrics.Query_time.max}}</td>
                         <td :class="{'text-danger': (row.metrics.Query_time.median >= 0.05)}">{{row.metrics.Query_time.median}}</td>
+                        <td :class="{'text-danger': (row.metrics.Lock_time.sum >= 0.05)}">{{row.metrics.Lock_time.sum}}</td>
                         <td :class="{'text-danger': (row.metrics.Rows_examined.max > row.metrics.Rows_sent.max*10)}">{{row.metrics.Rows_examined.max}}</td>
                         <td>{{row.metrics.Rows_sent.max}}</td>
                     </tr>
