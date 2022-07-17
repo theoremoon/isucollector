@@ -69,9 +69,9 @@ input:checked+div{
                         <td :title="row.fingerprint" class="text-truncate" style="max-width: 20em">{{row.fingerprint}}</td>
                         <td>{{row.query_count}}</td>
                         <td>{{row.metrics.Query_time.sum}}</td>
-                        <td :class="{'text-danger': (row.metrics.Query_time.max >= 0.2)}">{{row.metrics.Query_time.max}}</td>
-                        <td :class="{'text-danger': (row.metrics.Query_time.median >= 0.1)}">{{row.metrics.Query_time.median}}</td>
-                        <td :class="{'text-danger': (row.metrics.Rows_examined.max >= row.metrics.Rows_sent.max*10)}">{{row.metrics.Rows_examined.max}}</td>
+                        <td :class="{'text-danger': (row.metrics.Query_time.max >= 0.1)}">{{row.metrics.Query_time.max}}</td>
+                        <td :class="{'text-danger': (row.metrics.Query_time.median >= 0.05)}">{{row.metrics.Query_time.median}}</td>
+                        <td :class="{'text-danger': (row.metrics.Rows_examined.max > row.metrics.Rows_sent.max*10)}">{{row.metrics.Rows_examined.max}}</td>
                         <td>{{row.metrics.Rows_sent.max}}</td>
                     </tr>
                 </tbody>
