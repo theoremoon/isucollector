@@ -105,7 +105,7 @@ func (c *IsuCollector) Collect() {
 
 	revision, err := c.getRevision(c.repo)
 	if err != nil {
-		log.Println("failed to get revision: %w", err)
+		log.Printf("failed to get revision: %v", err)
 	}
 
 	qr, err := c.queryDigest()
@@ -113,7 +113,7 @@ func (c *IsuCollector) Collect() {
 		digest, _ := io.ReadAll(qr)
 		c.db.Exec("INSERT INTO log (kind, content, revision, created_at) VALUES (?, ?, ?, ?)", "pt-query-digest", string(digest), revision, now)
 	} else {
-		log.Println("pt-query-digest: %w", err)
+		log.Printf("pt-query-digest: %v", err)
 	}
 
 	ar, err := c.alp()
@@ -121,7 +121,7 @@ func (c *IsuCollector) Collect() {
 		alp, _ := io.ReadAll(ar)
 		c.db.Exec("INSERT INTO log (kind, content, revision, created_at) VALUES (?, ?, ?, ?)", "alp", string(alp), revision, now)
 	} else {
-		log.Println("alp: %w", err)
+		log.Printf("alp: %v", err)
 	}
 }
 
@@ -133,7 +133,7 @@ type Revision struct {
 func (c *IsuCollector) ListRevisions() ([]Revision, error) {
 	rows, err := c.db.Query("SELECT revision, created_at FROM log GROUP BY revision, created_at ORDER BY created_at DESC")
 	if err != nil {
-		return nil, fmt.Errorf("failed to select: %w", err)
+		return nil, fmt.Errorf("failed to select: %v", err)
 	}
 
 	revs := make([]Revision, 0)
