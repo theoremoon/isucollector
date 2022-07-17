@@ -16,7 +16,7 @@
             <div class="col-2">
         <ul class="list-group" v-for="rev in revisions">
             <li class="list-group-item">
-                <a :href="`?created_at=${rev.created_at}&tab={tab}`">
+                <a :href="`?created_at=${rev.created_at}&tab=${tab}`">
                     {{rev.revision}} at {{formatDate(rev.created_at)}}
                 </a>
             </li>
