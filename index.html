@@ -16,7 +16,7 @@
             <div class="col-2">
         <ul class="list-group" v-for="rev in revisions">
             <li class="list-group-item">
-                <a :href="`?created_at=${rev.created_at}&tab=${tab}`">
+                <a :href="`?created_at=${rev.created_at}&tab=${tab}`" style="overflow-wrap: break-word;">
                     {{rev.revision}} at {{formatDate(rev.created_at)}}
                 </a>
             </li>
@@ -26,13 +26,13 @@
         <div class="col-8">
         <ul class="nav justify-content-center">
           <li class="nav-item" v-if="digest">
-              <a class="nav-link" :href="`?created_at=${created_at}&tab=digest`">
+              <a class="nav-link" :href="`?created_at=${created_at}&tab=digest`" :style="{textDecoration: tab == 'digest' ? 'underline' : 'none' }">
               pt-query-digest
               </a>
           </li>
 
           <li class="nav-item" v-if="alp">
-              <a class="nav-link" :href="`?created_at=${created_at}&tab=alp`">
+              <a class="nav-link" :href="`?created_at=${created_at}&tab=alp`" :style="{textDecoration: tab == 'alp' ? 'underline' : 'none' }">
                   <label for="alp-check" style="cursor: pointer;">alp</label>
               </a>
           </li>
